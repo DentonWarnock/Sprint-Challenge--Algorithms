@@ -96,8 +96,49 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # Plan
+        # turn on the sorting light
+        # start a loop that continues until the (sorting) light turns off or we hit a return/break
+            # swap the first item with None
+            # move to the right
+            # compare the held item to current item
+                # if the current item is less than the held item swap them
+                # keep doing this until we cannot move right anymore
+                # robot will now be holding the lowest item
+            # go back and swap the lowest item for the position with a None value
+            # repeat this process until you can no longer go right            
+            
+            
+        #turn on light
+        self.set_light_on()
+        # start loop 
+        while self.light_is_on():
+            # swap None for the first item
+            self.swap_item()
+            # keep moving right and picking up the new smaller item
+            while self.move_right():
+                if self.compare_item() == 1:
+                    self.swap_item()
+            # robot is now holding the smallest item and we are at the far right of the list
+            # base case
+            # check if list is sorted by checking if last value equals None
+            if self.compare_item() is None:
+                # swap the None with the held item and we should now be completely sorted
+                self.swap_item()
+                # turn on the sorting light off
+                self.set_light_off()
+                # return out of loop so we dont hit the below move left loop
+                return
+            # move back left and replace the held item with the position that equals None
+            while self.can_move_left() and self.compare_item() is not None:
+                self.move_left()
+            # we should be at the None value now - swap the smallest item for None
+            self.swap_item()
+            # move right and start loop again
+            self.move_right()
+            
+            
+        
 
 
 if __name__ == "__main__":
