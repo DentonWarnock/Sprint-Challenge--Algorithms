@@ -104,9 +104,9 @@ class SortingRobot:
             # compare the held item to current item
                 # if the current item is less than the held item swap them
                 # keep doing this until we cannot move right anymore
-                # robot will now be holding the lowest item
-            # go back and swap the lowest item for the position with a None value
-            # repeat this process until you can no longer go right            
+                # robot will now be holding the lowest item at the far right
+            # go back left and swap the lowest item for the position with a None value
+            # repeat this process until you can no longer go right and the last value is None            
             
             
         #turn on light
@@ -115,7 +115,7 @@ class SortingRobot:
         while self.light_is_on():
             # swap None for the first item
             self.swap_item()
-            # keep moving right and picking up the new smaller item
+            # keep moving right and picking up the smallest item
             while self.move_right():
                 if self.compare_item() == 1:
                     self.swap_item()
@@ -129,12 +129,12 @@ class SortingRobot:
                 self.set_light_off()
                 # return out of loop so we dont hit the below move left loop
                 return
-            # move back left and replace the held item with the position that equals None
+            # move back left and find the postion that has a None value           
             while self.can_move_left() and self.compare_item() is not None:
                 self.move_left()
             # we should be at the None value now - swap the smallest item for None
             self.swap_item()
-            # move right and start loop again
+            # move one position right and start loop again
             self.move_right()
             
             
